@@ -18,6 +18,9 @@ from sib_api_v3_sdk.rest import ApiException
 from email_templates import get_template, detect_industry
 from brevo_api import BrevoAPI
 
+# State file to track unsubscribe check runs
+STATE_FILE = 'unsubscribed_check_state.json'
+
 load_dotenv()
 
 
@@ -61,65 +64,123 @@ class EmailSender:
             print(f"   ✗ Error sending to {to_email}: {e}")
             return False
 
-    def check_responses(self, leads_csv, days_back=7):
+    
+
+    def check_unsubscribed(self, leads_csv, days=None):
         """
-        Check Brevo API for engagement (opens/clicks) and log for manual review
-        
+        Check for unsubscribed events in Brevo and update lead statuses
+
         Args:
             leads_csv: path to CSV file with leads
-            days_back: check events from last N days
+            days: number of days to look back. If None, uses last run date from state file
+
+        Returns:
+            int: Number of unsubscribed contacts found and updated
         """
-        print(f"\n🔍 Checking for engagement (last {days_back} days)...")
+        # Determine days to look back
+        if days is None:
+            # Try to get last run date from state file
+            last_run = self._get_last_run_state()
+            if last_run:
+                days = (datetime.now() - last_run).days
+                print(f"\n🔍 Checking for unsubscribed contacts...")
+                print(f"📅 Since last check: {days} days ago ({last_run.strftime('%Y-%m-%d')})")
+            else:
+                # No state found, default to 30 days
+                days = 30
+                print(f"\n🔍 Checking for unsubscribed contacts...")
+                print(f"📅 No previous check found, using last {days} days")
+        else:
+            print(f"\n🔍 Checking for unsubscribed contacts...")
+            print(f"📅 Looking back {days} days")
         
-        # Get Brevo API instance
+        # Fetch unsubscribed events
+        from brevo_api import BrevoAPI
         brevo = BrevoAPI()
+        unsubscribed_events = brevo.get_events(
+            event_type='unsubscribed',
+            days=days
+        )
         
-        # Fetch opened and clicked events
-        opened_emails = brevo.get_events(event_type='opened', days=days_back)
-        clicked_emails = brevo.get_events(event_type='clicks', days=days_back)
+        if not unsubscribed_events:
+            print(f"✓ No unsubscribed events found in last {days} days")
+            return 0
         
-        # Count engagement per email
-        engagement_data = {}
+        print(f"✓ Found {len(unsubscribed_events)} unsubscribed event(s)\n")
         
-        for event in opened_emails:
-            email = event.get('email', '')
-            if email:
-                if email not in engagement_data:
-                    engagement_data[email] = {'opens': 0, 'clicks': 0}
-                engagement_data[email]['opens'] += 1
-        
-        for event in clicked_emails:
-            email = event.get('email', '')
-            if email:
-                if email not in engagement_data:
-                    engagement_data[email] = {'opens': 0, 'clicks': 0}
-                engagement_data[email]['clicks'] += 1
-        
-        if not engagement_data:
-            print("✅ No engagement found\n")
-            return
-        
-        # Log engagement for manual review
-        print(f"📊 Engagement Summary ({len(engagement_data)} contacts):\n")
-        print(f"{'Name':<40} {'Email':<40} {'Opens':<8} {'Clicks':<8}")
-        print("-" * 100)
-        
-        # Load leads to get names
+        # Load leads
         csv_file = leads_csv if os.path.exists(leads_csv) else 'brevo_import.csv'
         with open(csv_file, 'r', encoding='utf-8') as f:
             reader = csv.DictReader(f)
-            leads = {
-                (lead.get('email') or lead.get('EMAIL', '')).lower(): lead
-                for lead in reader
-            }
+            fieldnames = list(reader.fieldnames) if reader.fieldnames else []
+            all_leads = list(reader)
         
-        for email, data in sorted(engagement_data.items(), key=lambda x: x[1]['clicks'], reverse=True):
-            lead = leads.get(email.lower(), {})
-            name = (lead.get('name') or lead.get('NOME_NEGOCIO', '') or email)[:40]
-            print(f"{name:<40} {email:<40} {data['opens']:<8} {data['clicks']:<8}")
+        # Track updates
+        updated_count = 0
+        unsubscribed_emails = set()
         
-        print(f"\n💡 Tip: Manually update status in {csv_file} for contacts you want to follow up with")
-        print(f"   Recommended statuses: 'interested', 'contacted', 'not_interested'")
+        # Update leads that unsubscribed
+        for event in unsubscribed_events:
+            email = event['email']
+            
+            # Find this lead in the CSV
+            for lead in all_leads:
+                lead_email = lead.get('email') or lead.get('EMAIL')
+                if email == lead_email:
+                    # Only update if not already unsubscribed
+                    current_status = lead.get('status', '')
+                    if current_status not in ['unsubscribed', 'bounced', 'spam']:
+                        lead['status'] = 'unsubscribed'
+                        lead['unsubscribed_at'] = event['_date']
+                        lead['unsubscribe_reason'] = 'Brevo event: unsubscribed'
+                        unsubscribed_emails.add(email)
+                        updated_count += 1
+                        print(f"  ✗ {lead.get('name') or lead.get('NOME_NEGOCIO', '')} ({email})")
+                        print(f"    Status: unsubscribed at {event['_date']}")
+                    break
+        
+        # Save updated leads
+        if updated_count > 0:
+            with open(csv_file, 'w', newline='', encoding='utf-8') as f:
+                writer = csv.DictWriter(f, fieldnames=fieldnames)
+                writer.writeheader()
+                writer.writerows(all_leads)
+            print(f"\n✅ Updated {updated_count} lead(s) to 'unsubscribed' status")
+        else:
+            print(f"\n✓ No new unsubscribed contacts to update")
+        
+        # Save state after successful check
+        self._save_run_state()
+
+        return updated_count
+
+    def _get_last_run_state(self):
+        """
+        Get the last run timestamp from state file
+        
+        Returns:
+            datetime: Last run timestamp, or None if no state file exists
+        """
+        if not os.path.exists(STATE_FILE):
+            return None
+        
+        try:
+            with open(STATE_FILE, 'r', encoding='utf-8') as f:
+                state = json.load(f)
+                return datetime.fromisoformat(state.get('last_run'))
+        except (json.JSONDecodeError, KeyError, ValueError):
+            return None
+
+    def _save_run_state(self):
+        """
+        Save the current timestamp to state file
+        """
+        state = {
+            'last_run': datetime.now().isoformat(),
+            'version': '1.0'
+        }
+        with open(STATE_FILE, 'w', encoding='utf-8') as f:
+            json.dump(state, f, indent=2)
 
     def send_campaign(self, leads_csv, daily_limit=20, start_from=0, test_mode=False):
         """
@@ -137,8 +198,9 @@ class EmailSender:
         print(f"Starting from index: {start_from}")
         print(f"Test mode: {test_mode}\n")
 
-        # First, check for responses and update lead statuses
-        self.check_responses(leads_csv, days_back=7)
+        # First, check for unsubscribed contacts
+        self.check_unsubscribed(leads_csv)
+        print(f"\n{'='*60}\n")
 
         # Load leads - try both file names for compatibility
         csv_file = leads_csv if os.path.exists(leads_csv) else 'brevo_import.csv'
@@ -365,6 +427,7 @@ Examples:
   python send_emails.py --limit 20           # Dry run (default)
   python send_emails.py --send --limit 20    # Actually send emails
   python send_emails.py --resume 100         # Resume from index 100
+  python send_emails.py --check-unsub        # Only check unsubscribed contacts
         '''
     )
     
@@ -376,6 +439,10 @@ Examples:
                         help='Resume from index (default: 0)')
     parser.add_argument('--send', action='store_true',
                         help='Actually send emails (default: dry run only)')
+    parser.add_argument('--check-unsub', action='store_true',
+                        help='Only check for unsubscribed contacts and update status')
+    parser.add_argument('--days', type=int, default=None,
+                        help='Number of days to look back for unsubscribed events (default: since last run)')
     
     args = parser.parse_args()
     
@@ -388,6 +455,11 @@ Examples:
         print("BREVO_API_KEY=your_key_here")
         print("SENDER_EMAIL=comercial@ia-recepcionista.com")
         print("SENDER_NAME=Diogo Couto")
+        return
+
+    # Handle --check-unsub flag
+    if args.check_unsub:
+        sender.check_unsubscribed(args.csv, days=args.days)
         return
 
     # Send campaign (dry run by default, use --send to actually send)
