@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tail:*)",
+      "Bash(cd /c/Users/Diogo/Desktop/ai_receptionist && python -m pytest tests/test_storage.py -v 2>&1)",
+      "Bash(sleep 3:*)",
+      "Bash(curl:*)",
+      "Bash(cd:*)",
+      "Bash(cmd:*)",
+      "Bash(python:*)",
+      "Bash(pip install:*)",
+      "Bash(mkdir:*)",
+      "WebFetch(domain:github.com)",
+      "WebSearch",
+      "Bash(netstat:*)",
+      "Bash(taskkill:*)",
+      "Bash(powershell:*)",
+      "Bash(chmod 600:*)",
+      "Bash(ssh:*)",
+      "Bash(scp:*)",
+      "Bash(pkill -f \"uvicorn main:app\")",
+      "Bash(kill 645773)",
+      "Read(//home/ubuntu/.gemini/antigravity/**)",
+      "Bash(node --version)",
+      "Read(//home/ubuntu/.config/**)",
+      "Bash(sudo apt update)",
+      "Bash(sudo apt install -y scrot imagemagick)",
+      "Bash(source /home/ubuntu/ai_receptionist/venv/bin/activate)",
+      "Bash(playwright install chromium)",
+      "Bash(playwright install-deps chromium)",
+      "Bash(source venv/bin/activate)"
+    ]
+  }
+}

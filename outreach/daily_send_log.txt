@@ -1,0 +1,196 @@
+2026-03-20 14:50:01,705 ============================================================
+2026-03-20 14:50:01,705 Daily batch send — Friday 20/03/2026 14:50
+2026-03-20 14:50:01,706 ============================================================
+2026-03-20 14:50:01,715 Total: 135 | Already sent: 40 | Remaining: 95
+2026-03-20 14:50:01,715 Today's batch: 20 emails
+2026-03-20 14:50:01,717 [1/20] Del Rei (geral@aldelrei.pt) — 15:00
+2026-03-20 14:50:01,972   OK
+2026-03-20 14:50:01,972 [2/20] Feel Porto Matosinhos Ocean Flats (info@feelporto.com) — 15:03
+2026-03-20 14:50:02,032   OK
+2026-03-20 14:50:02,032 [3/20] Vintagebeachhouse (hello@oceanboutiqueguesthouse.com) — 15:06
+2026-03-20 14:50:02,083   OK
+2026-03-20 14:50:02,083 [4/20] ClipHotel (info@cliphotel.pt) — 15:09
+2026-03-20 14:50:02,151   OK
+2026-03-20 14:50:02,152 [5/20] Gaia Residence (info@gaiaresidence.com) — 15:12
+2026-03-20 14:50:02,212   OK
+2026-03-20 14:50:02,213 [6/20] The Yeatman (reception@theyeatman.com) — 15:15
+2026-03-20 14:50:02,504   OK
+2026-03-20 14:50:02,504 [7/20] Rubens Hotels & Spa (reservas@rubenshotels.com) — 15:18
+2026-03-20 14:50:02,572   OK
+2026-03-20 14:50:02,572 [8/20] The Rebello, an SLH Hotel (reservations@therebello.com) — 15:21
+2026-03-20 14:50:02,621   OK
+2026-03-20 14:50:02,622 [9/20] Hostel Gaia Porto (info@hostelgaiaporto.pt) — 15:24
+2026-03-20 14:50:02,669   OK
+2026-03-20 14:50:02,669 [10/20] Residencial Porto Novo (info@residencialportonovo.com) — 15:27
+2026-03-20 14:50:02,738   OK
+2026-03-20 14:50:02,739 [11/20] Hotel do Norte (pensaodonorte@gmail.com) — 15:30
+2026-03-20 14:50:02,798   OK
+2026-03-20 14:50:02,798 [12/20] Porto Automatic (portoautomaticrooms@gmail.com) — 15:33
+2026-03-20 14:50:02,862   OK
+2026-03-20 14:50:02,863 [13/20] Sercotel Gran Hotel Zurbarán (reservas@granhotelzurbaranbadajoz.com) — 15:36
+2026-03-20 14:50:02,917   OK
+2026-03-20 14:50:02,917 [14/20] Hotel Central Parque (reservas@hotelcentralparque.com) — 15:39
+2026-03-20 14:50:02,970   OK
+2026-03-20 14:50:02,970 [15/20] STAY HOTEL PORTO AEROPORTO (geral@stayhotels.pt) — 15:42
+2026-03-20 14:50:03,022   OK
+2026-03-20 14:50:03,022 [16/20] Hotel 3K Porto Aeroporto (geral@hotel3kporto.com) — 15:45
+2026-03-20 14:50:03,074   OK
+2026-03-20 14:50:03,075 [17/20] HOTEL PUMA (geral@hotelpuma.pt) — 15:48
+2026-03-20 14:50:03,151   OK
+2026-03-20 14:50:03,152 [18/20] Coffee Cream Guest House Maia (floritasociados@gmail.com) — 15:51
+2026-03-20 14:50:03,206   OK
+2026-03-20 14:50:03,207 [19/20] HOTEL AEROPORTO (reservas@hotelaeroporto.com.pt) — 15:54
+2026-03-20 14:50:03,545   OK
+2026-03-20 14:50:03,546 [20/20] 1 AirPorto Hostel (info@airportohostel.com) — 15:57
+2026-03-20 14:50:03,613   OK
+2026-03-20 14:50:03,614 
+2026-03-20 14:50:03,614 Batch done: 20 sent, 0 failed
+2026-03-20 14:50:03,614 Total progress: 60/135
+2026-03-20 14:50:03,614 ============================================================
+2026-03-21 14:50:01,762 ============================================================
+2026-03-21 14:50:01,762 Daily batch send — Saturday 21/03/2026 14:50
+2026-03-21 14:50:01,762 ============================================================
+2026-03-21 14:50:01,767 Total: 135 | Already sent: 60 | Remaining: 75
+2026-03-21 14:50:01,768 Today's batch: 20 emails
+2026-03-21 14:50:01,772 [1/20] Hotel Singular Aeroporto (geral@singularhotel.pt) — 15:00
+2026-03-21 14:50:02,027   OK
+2026-03-21 14:50:02,028 [2/20] Hotel Areosa (geral@hotelareosa.pt) — 15:03
+2026-03-21 14:50:02,144   OK
+2026-03-21 14:50:02,144 [3/20] Eurostars Oporto (reservas@eurostarsoporto.com) — 15:06
+2026-03-21 14:50:02,264   OK
+2026-03-21 14:50:02,264 [4/20] Hotel Portas de Santa Rita (geral@hotelportasdesantarita.pt) — 15:09
+2026-03-21 14:50:02,381   OK
+2026-03-21 14:50:02,381 [5/20] Casa Maya (casamaya.porto@gmail.com) — 15:12
+2026-03-21 14:50:02,510   OK
+2026-03-21 14:50:02,510 [6/20] Hotel Porto Nobre (reservas@portonobre.net) — 15:15
+2026-03-21 14:50:02,623   OK
+2026-03-21 14:50:02,623 [7/20] Villarit Porto (reservas@hostalpaz.es) — 15:18
+2026-03-21 14:50:02,752   OK
+2026-03-21 14:50:02,752 [8/20] Hotel Love (reservas@montecarloloveporto.com) — 15:21
+2026-03-21 14:50:02,863   OK
+2026-03-21 14:50:02,863 [9/20] The Log Porto Hotel by Piamonte Hotels (booking.tlph@piamontehotels.com) — 15:24
+2026-03-21 14:50:02,982   OK
+2026-03-21 14:50:02,982 [10/20] Outsite Porto - Mouco (fo.douro@pestana.com) — 15:27
+2026-03-21 14:50:03,099   OK
+2026-03-21 14:50:03,099 [11/20] TwentyOne Motel (geral@21motel.pt) — 15:30
+2026-03-21 14:50:03,205   OK
+2026-03-21 14:50:03,205 [12/20] MEU HOTEL Porto Gandra (marketing@meuhotel.pt) — 15:33
+2026-03-21 14:50:03,334   OK
+2026-03-21 14:50:03,334 [13/20] Peach Hostel & Suites (info@peachhostel.com) — 15:36
+2026-03-21 14:50:03,456   OK
+2026-03-21 14:50:03,456 [14/20] SleepBoat (reservas@sleepboat.pt) — 15:39
+2026-03-21 14:50:03,574   OK
+2026-03-21 14:50:03,575 [15/20] Casas da Corujeira (geral@casasdacorujeira.pt) — 15:42
+2026-03-21 14:50:03,682   OK
+2026-03-21 14:50:03,683 [16/20] Blissful Suites by gaiarooms (reservas@gaiarooms.com) — 15:45
+2026-03-21 14:50:03,792   OK
+2026-03-21 14:50:03,793 [17/20] Porto Surf Lodge (info@porto-surf-lodge.com) — 15:48
+2026-03-21 14:50:03,902   OK
+2026-03-21 14:50:03,902 [18/20] Motel Avenue Valongo (reservas@motelavenue.pt) — 15:51
+2026-03-21 14:50:04,008   OK
+2026-03-21 14:50:04,008 [19/20] Hotel Santo Andre (reservas@hotelsantoandre.com) — 15:54
+2026-03-21 14:50:04,133   OK
+2026-03-21 14:50:04,133 [20/20] Hotel Mira D'Aire (geral@hotelmiradaire.com) — 15:57
+2026-03-21 14:50:04,266   OK
+2026-03-21 14:50:04,266 
+2026-03-21 14:50:04,266 Batch done: 20 sent, 0 failed
+2026-03-21 14:50:04,266 Total progress: 80/135
+2026-03-21 14:50:04,266 ============================================================
+2026-03-23 14:50:01,967 ============================================================
+2026-03-23 14:50:01,967 Daily batch send — Monday 23/03/2026 14:50
+2026-03-23 14:50:01,967 ============================================================
+2026-03-23 14:50:01,980 Total: 135 | Already sent: 80 | Remaining: 55
+2026-03-23 14:50:01,980 Today's batch: 20 emails
+2026-03-23 14:50:01,989 [1/20] Portugal Alma - Oporto Guesthouse (reservas@portugalalma.com) — 15:00
+2026-03-23 14:50:02,191   OK
+2026-03-23 14:50:02,192 [2/20] Mo House, Alojamento Local (reservas@mohouse.pt) — 15:03
+2026-03-23 14:50:02,283   OK
+2026-03-23 14:50:02,285 [3/20] Majestic Hostel Porto (info@socoolhostelporto.com) — 15:06
+2026-03-23 14:50:02,360   OK
+2026-03-23 14:50:02,362 [4/20] Alojamento Local "Jardim do Marquês" (frontdesk@primandproper.pt) — 15:09
+2026-03-23 14:50:02,442   OK
+2026-03-23 14:50:02,442 [5/20] OportoHost - Alojamento Local - Dragão (info@oportohost.com) — 15:12
+2026-03-23 14:50:02,519   OK
+2026-03-23 14:50:02,519 [6/20] Onefam Ribeira Hostel Porto (info@onefamhostels.com) — 15:15
+2026-03-23 14:50:02,597   OK
+2026-03-23 14:50:02,598 [7/20] Fábrica de Histórias - Alojamento Local (comercial@hostwise.pt) — 15:18
+2026-03-23 14:50:02,674   OK
+2026-03-23 14:50:02,674 [8/20] Residencial Vale Formoso (info@108mmhouse.com) — 15:21
+2026-03-23 14:50:02,750   OK
+2026-03-23 14:50:02,751 [9/20] GuestHouse Marquês (geral@guesthousedomarques.pt) — 15:24
+2026-03-23 14:50:02,823   OK
+2026-03-23 14:50:02,823 [10/20] Travel & Live Marques (guest@guestready.com) — 15:27
+2026-03-23 14:50:02,894   OK
+2026-03-23 14:50:02,895 [11/20] 2U Oporto Urban Stays (ruadoalmada462@gmail.com) — 15:30
+2026-03-23 14:50:02,977   OK
+2026-03-23 14:50:02,977 [12/20] Classico Guesthouse - Deluxe Double Room with Balcony (angelin.sirbu@gmail.com) — 15:33
+2026-03-23 14:50:03,048   OK
+2026-03-23 14:50:03,048 [13/20] D&S - Villa Apartments & Suites IV (info@smarthousing.com) — 15:36
+2026-03-23 14:50:03,131   OK
+2026-03-23 14:50:03,131 [14/20] Rosalma Hostel Porto (hello@rosalmahostel.com) — 15:39
+2026-03-23 14:50:03,206   OK
+2026-03-23 14:50:03,206 [15/20] Porto Lounge Hostel & Guesthouse (info@portoloungehostel.com) — 15:42
+2026-03-23 14:50:03,282   OK
+2026-03-23 14:50:03,282 [16/20] Gallery Hostel (eventos.ribeira@thecentralhousehostels.com) — 15:45
+2026-03-23 14:50:03,366   OK
+2026-03-23 14:50:03,366 [17/20] The Passenger Hostel (info@nicewaycascais.com) — 15:48
+2026-03-23 14:50:03,436   OK
+2026-03-23 14:50:03,436 [18/20] ZERO Box Lodge Porto (info@beingportohostel.com) — 15:51
+2026-03-23 14:50:03,508   OK
+2026-03-23 14:50:03,508 [19/20] Happy Porto Hostel (info@thepassengerhostel.com) — 15:54
+2026-03-23 14:50:03,575   OK
+2026-03-23 14:50:03,575 [20/20] Oporto Sky Hostel (RESERVATIONS@GALLERY-HOSTEL.COM) — 15:57
+2026-03-23 14:50:03,653   OK
+2026-03-23 14:50:03,654 
+2026-03-23 14:50:03,654 Batch done: 20 sent, 0 failed
+2026-03-23 14:50:03,654 Total progress: 100/135
+2026-03-23 14:50:03,654 ============================================================
+2026-03-24 14:50:02,958 ============================================================
+2026-03-24 14:50:02,960 Daily batch send — Tuesday 24/03/2026 14:50
+2026-03-24 14:50:02,960 ============================================================
+2026-03-24 14:50:02,966 Total: 135 | Already sent: 100 | Remaining: 35
+2026-03-24 14:50:02,966 Today's batch: 20 emails
+2026-03-24 14:50:02,970 [1/20] Garden in Town Hostel (help@pilothostel.com) — 15:00
+2026-03-24 14:50:03,215   OK
+2026-03-24 14:50:03,215 [2/20] BO - Álvares Cabral GuestHouse (info@byoporto.pt) — 15:03
+2026-03-24 14:50:03,307   OK
+2026-03-24 14:50:03,308 [3/20] inPátio Guest House (info@inpatio.pt) — 15:06
+2026-03-24 14:50:03,389   OK
+2026-03-24 14:50:03,389 [4/20] Dukes Corner Guest House (residencialportuguesa@gmail.com) — 15:09
+2026-03-24 14:50:03,471   OK
+2026-03-24 14:50:03,471 [5/20] Mirandesa Garden (geral@caleguesthouse.pt) — 15:12
+2026-03-24 14:50:03,560   OK
+2026-03-24 14:50:03,560 [6/20] Menina Colina Guesthouse (info@menina-colina.pt) — 15:15
+2026-03-24 14:50:03,638   OK
+2026-03-24 14:50:03,639 [7/20] Jardins do Porto - by Unlock Boutique Hotels (sales@unlockhotels.com) — 15:18
+2026-03-24 14:50:03,715   OK
+2026-03-24 14:50:03,715 [8/20] Residencial Lunar (reservas@residenciallunar.com) — 15:21
+2026-03-24 14:50:03,787   OK
+2026-03-24 14:50:03,787 [9/20] Pensão França (geral@pensaofranca..com) — 15:24
+2026-03-24 14:50:03,852   FAILED
+2026-03-24 14:50:03,852 [10/20] Hotel - Pensão Residencial Henrique Vlll (hello@happyporto.com) — 15:27
+2026-03-24 14:50:03,929   OK
+2026-03-24 14:50:03,929 [11/20] Grande Oceano Guest House (info@grandeoceano.net) — 15:30
+2026-03-24 14:50:04,000   OK
+2026-03-24 14:50:04,000 [12/20] MyStay Porto Bolhão (info@therexhotel.pt) — 15:33
+2026-03-24 14:50:04,090   OK
+2026-03-24 14:50:04,090 [13/20] BCharming House (bcharminghouse@gmail.com) — 15:36
+2026-03-24 14:50:04,168   OK
+2026-03-24 14:50:04,168 [14/20] Metro Casa Música Apartments and Rooms (reservas@mystay.pt) — 15:39
+2026-03-24 14:50:04,247   OK
+2026-03-24 14:50:04,247 [15/20] Cerrado Dos Outeirinhos (geral@cerradodosouteirinhos.pt) — 15:42
+2026-03-24 14:50:04,319   OK
+2026-03-24 14:50:04,319 [16/20] FEEL DISCOVERY (reservations@feeldiscovery.com) — 15:45
+2026-03-24 14:50:04,404   OK
+2026-03-24 14:50:04,404 [17/20] Casa Da Roda - Turismo Rural, Lda. (geral@casadaroda.com) — 15:48
+2026-03-24 14:50:04,474   OK
+2026-03-24 14:50:04,474 [18/20] Hotel Rural Quinta de Novais (geral@quintadenovais.com) — 15:51
+2026-03-24 14:50:04,549   OK
+2026-03-24 14:50:04,549 [19/20] Casa de Gaia, Alojamento Local (invejach@gmail.com) — 15:54
+2026-03-24 14:50:04,621   OK
+2026-03-24 14:50:04,621 [20/20] Quinta de Travassinhos (geral@quintadetravassinhos.pt) — 15:57
+2026-03-24 14:50:04,691   OK
+2026-03-24 14:50:04,693 
+2026-03-24 14:50:04,693 Batch done: 19 sent, 1 failed
+2026-03-24 14:50:04,693 Total progress: 119/135
+2026-03-24 14:50:04,693 ============================================================

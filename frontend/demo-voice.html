@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo IA Recepcionista - Apenas Voz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+  <style>
+    /* Hide text chat and input for voice-only demo */
+    #chat {
+      display: none !important;
+    }
+    #text-input-area {
+      display: none !important;
+    }
+
+    /* Center voice controls and make them prominent */
+    .app {
+      justify-content: center;
+    }
+
+    .controls {
+      padding: 60px 20px;
+    }
+
+    /* Add instructions */
+    .voice-instructions {
+      text-align: center;
+      padding: 32px 24px;
+      background: #f0f9ff;
+      border-bottom: 1px solid #e0e7ff;
+    }
+
+    .voice-instructions h3 {
+      font-size: 1.25rem;
+      color: #1e40af;
+      margin-bottom: 12px;
+    }
+
+    .voice-instructions p {
+      color: #64748b;
+      line-height: 1.6;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .voice-instructions ul {
+      list-style: none;
+      padding: 0;
+      margin: 16px auto 0;
+      max-width: 400px;
+      text-align: left;
+    }
+
+    .voice-instructions li {
+      padding: 8px 0;
+      color: #475569;
+    }
+
+    .voice-instructions li:before {
+      content: "•";
+      color: #3b82f6;
+      font-weight: bold;
+      margin-right: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Demo banner -->
+  <div id="demo-banner">
+    <span class="demo-badge">DEMONSTRAÇÃO</span>
+    <span class="demo-text">Experimente a recepcionista por voz — clique no microfone e fale</span>
+  </div>
+
+  <!-- Unlock overlay -->
+  <div id="unlock-overlay" role="dialog" aria-modal="true" aria-labelledby="unlock-title">
+    <div class="unlock-content">
+      <div class="unlock-icon" aria-hidden="true">🎤</div>
+      <h2 id="unlock-title">Bem-vindo à Recepcionista Virtual</h2>
+      <p>Clique para começar a conversa por voz</p>
+      <button id="unlock-btn" aria-label="Iniciar conversa com a recepcionista virtual">Iniciar Demo</button>
+    </div>
+  </div>
+
+  <div class="app">
+
+    <!-- Header -->
+    <header>
+      <div class="avatar">🏢</div>
+      <div class="header-text">
+        <h1>Demo IA Recepcionista</h1>
+        <p>Demonstração por Voz</p>
+      </div>
+      <div class="status-dot" title="Online"></div>
+    </header>
+
+    <!-- Voice Instructions -->
+    <div class="voice-instructions">
+      <h3>Como Testar</h3>
+      <p>Clique no microfone azul abaixo e fale. A recepcionista irá responder por voz.</p>
+      <ul>
+        <li>Pergunte sobre horários e preços</li>
+        <li>Tente marcar uma consulta</li>
+        <li>Peça informações sobre serviços</li>
+      </ul>
+    </div>
+
+    <!-- Status bar -->
+    <div id="status-bar">
+      <span id="status-text">Pronto — clique no microfone para começar</span>
+      <span class="spinner hidden" aria-hidden="true"></span>
+    </div>
+
+    <!-- Chat transcript (hidden) -->
+    <div id="chat" role="log" aria-live="polite" aria-label="Conversa"></div>
+
+    <!-- Text input (hidden) -->
+    <div id="text-input-area">
+      <input id="text-input" type="text" placeholder="Escreva uma mensagem…" autocomplete="off"
+        aria-label="Campo de mensagem" />
+      <button id="send-btn" title="Enviar" aria-label="Enviar mensagem">&#9658;</button>
+    </div>
+
+    <!-- Voice controls -->
+    <div class="controls">
+      <button class="btn-icon" id="mute-btn" title="Silenciar / ativar voz" aria-label="Alternar voz">
+        🔊
+      </button>
+      <button id="mic-btn" title="Clique para gravar" aria-label="Começar a gravar">
+        🎤
+      </button>
+      <button class="btn-icon" id="clear-btn" title="Reiniciar conversa" aria-label="Reiniciar conversa">
+        🔄
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Toast notifications -->
+  <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="/static/app.js?v=1772483873"></script>
+</body>
+
+</html>
