@@ -434,7 +434,7 @@ Examples:
         '''
     )
     
-    parser.add_argument('--csv', type=str, default='brevo_import.csv',
+    parser.add_argument('--csv', type=str, default=os.path.join(os.path.dirname(__file__), 'brevo_import.csv'),
                         help='Path to CSV file with leads (default: brevo_import.csv)')
     parser.add_argument('--limit', type=int, default=20,
                         help='Daily email limit (default: 20)')
