@@ -88,8 +88,10 @@ class EmailSender:
                 days = (datetime.now() - last_run).days
                 print(f"📅 Since last check: {days} days ago ({last_run.strftime('%Y-%m-%d')})")
             else:
-                print(f"📅 No previous check found, starting from beginning")
+                days = 90 
+                print(f"📅 No previous check found, looking back {days} days")
         else:
+
             print(f"📅 Looking back {days} days")
         
         # Fetch unsubscribed events
@@ -107,7 +109,11 @@ class EmailSender:
         print(f"✓ Found {len(unsubscribed_events)} unsubscribed event(s)\n")
         
         # Load leads
-        csv_file = leads_csv if os.path.exists(leads_csv) else 'brevo_import.csv'
+        csv_file = os.path.join(os.path.dirname(__file__), leads_csv if os.path.exists(leads_csv) else 'brevo_import.csv')
+        if not os.path.exists(csv_file):
+            # Try absolute path if relative fails
+            csv_file = os.path.join('/home/ubuntu/ai_receptionist/outreach', leads_csv if os.path.exists(leads_csv) else 'brevo_import.csv')
+
         with open(csv_file, 'r', encoding='utf-8') as f:
             reader = csv.DictReader(f)
             fieldnames = list(reader.fieldnames) if reader.fieldnames else []
