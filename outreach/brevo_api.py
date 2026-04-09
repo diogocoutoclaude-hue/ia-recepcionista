@@ -24,7 +24,7 @@ class BrevoAPI:
             sib_api_v3_sdk.ApiClient(configuration)
         )
     
-    def get_events(self, event_type='opened', start_date=None, end_date=None, days=7):
+    def get_events(self, event_type='opened', start_date=None, end_date=None, days=90):
         """
         Fetch events from Brevo API
         
@@ -38,6 +38,8 @@ class BrevoAPI:
             list: List of event objects with email, _date, and other metadata
         """
         if not start_date:
+            if not (0 <= days <= 90):
+                raise ValueError("days must be between 0 and 90")
             start_date = (datetime.now() - timedelta(days=days)).strftime('%Y-%m-%d')
         
         if not end_date:

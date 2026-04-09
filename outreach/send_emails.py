@@ -77,21 +77,19 @@ class EmailSender:
         Returns:
             int: Number of unsubscribed contacts found and updated
         """
+
+        print(f"\n🔍 Checking for unsubscribed contacts...")
+
         # Determine days to look back
         if days is None:
             # Try to get last run date from state file
             last_run = self._get_last_run_state()
             if last_run:
                 days = (datetime.now() - last_run).days
-                print(f"\n🔍 Checking for unsubscribed contacts...")
                 print(f"📅 Since last check: {days} days ago ({last_run.strftime('%Y-%m-%d')})")
             else:
-                # No state found, default to 30 days
-                days = 30
-                print(f"\n🔍 Checking for unsubscribed contacts...")
-                print(f"📅 No previous check found, using last {days} days")
+                print(f"📅 No previous check found, starting from beginning")
         else:
-            print(f"\n🔍 Checking for unsubscribed contacts...")
             print(f"📅 Looking back {days} days")
         
         # Fetch unsubscribed events
