@@ -133,10 +133,9 @@ class EmailSender:
                 if email == lead_email:
                     # Only update if not already unsubscribed
                     current_status = lead.get('status', '')
-                    if current_status not in ['unsubscribed', 'bounced', 'spam']:
+                    if current_status not in ['unsubscribed']:
                         lead['status'] = 'unsubscribed'
-                        lead['unsubscribed_at'] = event['_date']
-                        lead['unsubscribe_reason'] = 'Brevo event: unsubscribed'
+                        lead['response_date'] = event['_date']
                         unsubscribed_emails.add(email)
                         updated_count += 1
                         print(f"  ✗ {lead.get('name') or lead.get('NOME_NEGOCIO', '')} ({email})")
