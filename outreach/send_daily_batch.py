@@ -54,8 +54,10 @@ def load_progress():
 
 
 def save_progress(progress):
-    with open(PROGRESS_PATH, 'w', encoding='utf-8') as f:
-        json.dump(progress, f, ensure_ascii=False, indent=2)
+    import sys
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+    from utils.atomic_writer import atomic_write_json
+    atomic_write_json(PROGRESS_PATH, progress)
 
 
 def main():

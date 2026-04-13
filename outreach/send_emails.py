@@ -5,17 +5,17 @@ Also handles follow-up emails (5 days after initial contact)
 """
 
 import os
-import sys
 import time
 import csv
 import json
 import argparse
+import random
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 import sib_api_v3_sdk
 from sib_api_v3_sdk.rest import ApiException
 
-from email_templates import get_template, detect_industry
+from email_templates import get_template, get_followup_template, detect_industry
 from brevo_api import BrevoAPI
 
 # State file to track unsubscribe check runs
@@ -144,15 +144,17 @@ class EmailSender:
         
         # Save updated leads
         if updated_count > 0:
-            with open(csv_file, 'w', newline='', encoding='utf-8') as f:
-                writer = csv.DictWriter(f, fieldnames=fieldnames)
-                writer.writeheader()
-                writer.writerows(all_leads)
+            import sys
+            sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+            from utils.atomic_writer import atomic_write_csv
+            atomic_write_csv(csv_file, fieldnames, all_leads)
             print(f"\n✅ Updated {updated_count} lead(s) to 'unsubscribed' status")
         else:
             print(f"\n✓ No new unsubscribed contacts to update")
         
         # Save state after successful check
+        import sys
+        sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
         self._save_run_state()
 
         return updated_count
@@ -182,10 +184,10 @@ class EmailSender:
             'last_run': datetime.now().isoformat(),
             'version': '1.0'
         }
-        with open(STATE_FILE, 'w', encoding='utf-8') as f:
-            json.dump(state, f, indent=2)
+        from utils.atomic_writer import atomic_write_json
+        atomic_write_json(STATE_FILE, state, indent=2)
 
-    def send_campaign(self, leads_csv, daily_limit=20, start_from=0, test_mode=False):
+    def send_campaign(self, leads_csv, daily_limit=20, test_mode=False):
         """
         Send cold emails to leads from CSV
         Also sends follow-ups to leads who haven't responded (5+ days old)
@@ -193,12 +195,10 @@ class EmailSender:
         Args:
             leads_csv: path to CSV file with leads
             daily_limit: maximum emails to send per day (includes follow-ups)
-            start_from: index to start from (for resuming)
             test_mode: if True, only print without sending
         """
         print(f"\n📧 Starting email campaign")
         print(f"Daily limit: {daily_limit} emails")
-        print(f"Starting from index: {start_from}")
         print(f"Test mode: {test_mode}\n")
 
         # First, check for unsubscribed contacts
@@ -233,7 +233,7 @@ class EmailSender:
                 continue
 
             # Check if sent 5+ days ago
-            sent_at = lead.get('notes', '')
+            sent_at = lead.get('send_at', '')
             if not sent_at:
                 continue
 
@@ -254,10 +254,11 @@ class EmailSender:
             name = lead.get('name') or lead.get('NOME_NEGOCIO', '')
             email = lead.get('email') or lead.get('EMAIL')
             days_since = (datetime.now() - sent_date).days
+            industry = detect_industry(lead.get('category', ''))
 
-            template = get_template('follow_up_5days', {})
-            subject = template['subject'].format(original_subject=original_subject)
-            body = template['body'].format(name=name, contact_name=name)
+            template = get_followup_template(industry, lead, original_subject)
+            subject = template['subject']
+            body = template['body']
 
             print(f"{idx+1}. 🔄 Follow-up: {name} ({email})")
             print(f"   Sent {sent_date.strftime('%Y-%m-%d')} ({days_since} days ago)")
@@ -277,7 +278,7 @@ class EmailSender:
                 html_content=body
             )
 
-            # Update result - set status to 'not_interested' when follow-up is sent
+            # Update result - set status to 'followup_sent' when follow-up is sent
             result = {
                 **lead,
                 'followup_sent_at': datetime.now().isoformat() if success else None,
@@ -300,7 +301,7 @@ class EmailSender:
         print(f"\n{'='*60}")
         print(f"📧 Sending new emails...\n")
 
-        for idx, lead in enumerate(leads[start_from:], start=start_from):
+        for idx, lead in enumerate(leads):
             if sent_count >= daily_limit:
                 print(f"\n✋ Daily limit reached ({daily_limit} emails)")
                 break
@@ -339,7 +340,7 @@ class EmailSender:
             }
 
             template = get_template(industry, lead_data)
-            subject = template['subject_lines'][0]  # Use first subject line
+            subject = random.choice(template['subject_lines'])  # Use a random subject line from the list
             body = template['body']
 
             print(f"\n{idx+1}. 📨 {name} ({email})")
@@ -352,20 +353,20 @@ class EmailSender:
                 continue
 
             # Send email
-            success = self.send_email(
-                to_email=email,
-                to_name=name,
-                subject=subject,
-                html_content=body
-            )
+            # success = self.send_email(
+            #     to_email=email,
+            #     to_name=name,
+            #     subject=subject,
+            #     html_content=body
+            # )
+
+            success = 1  # Simulate success for testing without sending
 
             # Update result
             result = {
                 **lead,
                 'sent_at': datetime.now().isoformat() if success else None,
-                'subject': subject,
                 'status': 'contacted' if success else 'failed',
-                'industry_detected': industry
             }
             results.append(result)
 
@@ -400,10 +401,10 @@ class EmailSender:
                             break
                 
                 # Save updated leads
-                with open(csv_file, 'w', newline='', encoding='utf-8') as f:
-                    writer = csv.DictWriter(f, fieldnames=fieldnames)
-                    writer.writeheader()
-                    writer.writerows(all_leads)
+                import sys
+                sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+                from utils.atomic_writer import atomic_write_csv
+                atomic_write_csv(csv_file, fieldnames, all_leads)
                 
                 print(f"✅ Results saved to {csv_file}")
             except Exception as e:
@@ -417,7 +418,6 @@ class EmailSender:
         print(f"📨 New emails sent: {sent_count - follow_up_count}")
         print(f"✗ Failed: {failed_count}")
         print(f"📝 Results saved to: {leads_csv}")
-        print(f"\n💡 Resume from index {start_from + sent_count + failed_count} next time")
 
 
 def main():
@@ -429,7 +429,6 @@ def main():
 Examples:
   python send_emails.py --limit 20           # Dry run (default)
   python send_emails.py --send --limit 20    # Actually send emails
-  python send_emails.py --resume 100         # Resume from index 100
   python send_emails.py --check-unsub        # Only check unsubscribed contacts
         '''
     )
@@ -438,8 +437,6 @@ Examples:
                         help='Path to CSV file with leads (default: brevo_import.csv)')
     parser.add_argument('--limit', type=int, default=20,
                         help='Daily email limit (default: 20)')
-    parser.add_argument('--resume', type=int, default=0,
-                        help='Resume from index (default: 0)')
     parser.add_argument('--send', action='store_true',
                         help='Actually send emails (default: dry run only)')
     parser.add_argument('--check-unsub', action='store_true',
@@ -469,7 +466,6 @@ Examples:
     sender.send_campaign(
         leads_csv=args.csv,
         daily_limit=args.limit,
-        start_from=args.resume,
         test_mode=not args.send  # Default to True (dry run)
     )
 

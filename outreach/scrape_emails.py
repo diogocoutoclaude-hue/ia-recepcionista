@@ -6,9 +6,7 @@ Checks homepage, contact page, and common paths.
 
 import re
 import json
-import csv
 import time
-import random
 import requests
 from urllib.parse import urljoin, urlparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -264,13 +262,14 @@ def main():
                 print(f"  [{i}/{total}] ✗ {lead.get('name')}: error - {e}")
 
     # Save updated leads
-    with open('outreach/leads.json', 'w', encoding='utf-8') as f:
-        json.dump(leads, f, ensure_ascii=False, indent=2)
+    import sys
+    import os
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+    from utils.atomic_writer import atomic_write_json, atomic_write_csv
+    atomic_write_json('outreach/leads.json', leads, indent=2)
 
-    with open('outreach/leads.csv', 'w', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=leads[0].keys())
-        writer.writeheader()
-        writer.writerows(leads)
+    if leads and len(leads) > 0:
+        atomic_write_csv('outreach/leads.csv', list(leads[0].keys()), leads)
 
     print(f"\n{'='*60}")
     print(f"Emails found: {found_count} / {total} websites scraped")

@@ -3,6 +3,8 @@ import os
 from datetime import datetime, timezone
 from typing import Any
 
+from utils.atomic_writer import atomic_write_json
+
 APPOINTMENTS_FILE = "appointments.json"
 LEADS_FILE = "leads.json"
 
@@ -18,8 +20,8 @@ def _read(path: str) -> list[dict]:
 
 
 def _write(path: str, records: list[dict]) -> None:
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(records, f, indent=2, ensure_ascii=False)
+    from utils.atomic_writer import atomic_write_json
+    atomic_write_json(path, records)
 
 
 def save_appointment(data: dict[str, Any]) -> dict:

@@ -2,6 +2,7 @@ import csv
 import re
 import asyncio
 from playwright.async_api import async_playwright
+import os
 
 # Configuration
 INPUT_FILE = 'outreach/brevo_import.csv'
@@ -115,11 +116,30 @@ async def main():
 
     # Write the updated rows to a new CSV
     try:
-        with open(OUTPUT_FILE, mode='w', encoding='utf-8', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow(fieldnames)
-            writer.writerows(updated_rows)
-        print(f"Successfully wrote updated data to {OUTPUT_FILE}.")
+        from utils.atomic_writer import atomic_write_csv
+        # Convert list of lists back to list of dicts for atomic_write_csv if needed, 
+        # but atomic_write_csv expects DictWriter which needs fieldnames and rows as dicts.
+        # Since the original code used csv.writer (list of lists), I'll adapt it.
+        
+        # Let's create a temporary file manually or use a more flexible atomic writer if I had one.
+        # Actually, I can just implement a simple atomic write for list of lists here 
+        # or modify atomic_writer to support it.
+        # For now, let's use the existing pattern but with a temp file to be safe and consistent.
+        
+        import tempfile
+        dir_name = os.path.dirname(os.path.abspath(OUTPUT_FILE))
+        fd, temp_path = tempfile.mkstemp(dir=dir_name, prefix=".tmp_", suffix=".csv")
+        try:
+            with os.fdopen(fd, 'w', encoding='utf-8', newline='') as f:
+                writer = csv.writer(f)
+                writer.writerow(fieldnames)
+                writer.writerows(updated_rows)
+            os.replace(temp_path, OUTPUT_FILE)
+            print(f"Successfully wrote updated data to {OUTPUT_FILE}.")
+        except Exception as e:
+            if os.path.exists(temp_path):
+                os.remove(temp_path)
+            raise e
     except Exception as e:
         print(f"Error writing to {OUTPUT_FILE}: {e}")
 

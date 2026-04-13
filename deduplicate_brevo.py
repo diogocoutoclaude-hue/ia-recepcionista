@@ -85,10 +85,8 @@ def deduplicate_and_clean(input_path, output_path):
 
     # Write to output
     try:
-        with open(output_path, mode='w', encoding='utf-8', newline='') as f:
-            writer = csv.DictWriter(f, fieldnames=fieldnames)
-            writer.writeheader()
-            writer.writerows(final_rows)
+        from utils.atomic_writer import atomic_write_csv
+        atomic_write_csv(output_path, fieldnames, final_rows)
         print(f"Successfully wrote final data to {output_path}.")
     except Exception as e:
         print(f"Error writing to {output_path}: {e}")
