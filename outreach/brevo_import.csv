@@ -1,4 +1,4 @@
-name,address,phone,website,category,rating,search_query,scraped_at,email,status,notes,response_date
+name,address,phone,website,category,rating,search_query,scraped_at,email,status,send_at,response_date
 EU,,,,,,,,diogocouto.couto@gmail.com,,,
 Eurostars Matosinhos,"R. Heróis de França 536, 4450-159 Matosinhos, Portugal",,https://www.eurostarshotels.com.pt/eurostars-matosinhos.html?referer_code=lb0gg00yx&utm_source=google&utm_medium=business&utm_campaign=lb0gg00yx,Hotel,"4,6 estrelas",hotéis Porto,2026-03-19T20:48:08.650974,reservas@eurostarsmatosinhos.com,followup_sent,,
 ABC Hotel Porto - Boavista,"Av. da França 168 178, 4050-278 Porto, Portugal",,http://www.abchotels.pt/,Hotel,"4,1 estrelas",hotéis Porto,2026-03-19T20:48:15.525048,reservas.pcm@abchotels.pt,followup_sent,,
