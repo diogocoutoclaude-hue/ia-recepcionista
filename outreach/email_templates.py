@@ -28,7 +28,7 @@ Teste grátis: https://ia-recepcionista.com/#demo
 
 Posso criar uma demo personalizada com os dados do {name}? Responda "sim".
 
-<div style="background-color: #e8f5e9; border: 1px solid #c8e6c9; padding: 10px; margin: 10px 0; border-radius: 5px;">
+<div style="background-color: #e8f5e9; border: 1px solid #c8e6c9; padding: 10px; margin: 10px 0; border-radius: 5px; width: 700px;">
     <strong style="color: #2e7d32;">Sem compromisso:</strong> pode cancelar a qualquer momento e tem <strong style="color: #2e7d32;">100% de reembolso nos primeiros 30 dias</strong>.
 </div>
 
@@ -64,7 +64,7 @@ Demo grátis: https://ia-recepcionista.com/#demo
 
 Quer ver como funciona para o {name}? Responda "sim".
 
-<div style="background-color: #e8f5e9; border: 1px solid #c8e6c9; padding: 10px; margin: 10px 0; border-radius: 5px;">
+<div style="background-color: #e8f5e9; border: 1px solid #c8e6c9; padding: 10px; margin: 10px 0; border-radius: 5px; width: 700px;">
     <strong style="color: #2e7d32;">Sem compromisso:</strong> pode cancelar a qualquer momento e tem <strong style="color: #2e7d32;">100% de reembolso nos primeiros 30 dias</strong>.
 </div>
 
@@ -100,7 +100,7 @@ Teste grátis: https://ia-recepcionista.com/#demo
 
 Posso preparar uma demo com os dados do {name}? Responda "sim".
 
-<div style="background-color: #e8f5e9; border: 1px solid #c8e6c9; padding: 10px; margin: 10px 0; border-radius: 5px;">
+<div style="background-color: #e8f5e9; border: 1px solid #c8e6c9; padding: 10px; margin: 10px 0; border-radius: 5px; width: 700px;">
     <strong style="color: #2e7d32;">Sem compromisso:</strong> pode cancelar a qualquer momento e tem <strong style="color: #2e7d32;">100% de reembolso nos primeiros 30 dias</strong>.
 </div>
 
@@ -136,7 +136,7 @@ Teste grátis: https://ia-recepcionista.com/#demo
 
 Posso preparar uma demo com os dados de {name}? Responda "sim".
 
-<div style="background-color: #e8f5e9; border: 1px solid #c8e6c9; padding: 10px; margin: 10px 0; border-radius: 5px;">
+<div style="background-color: #e8f5e9; border: 1px solid #c8e6c9; padding: 10px; margin: 10px 0; border-radius: 5px; width: 700px;">
     <strong style="color: #2e7d32;">Sem compromisso:</strong> pode cancelar a qualquer momento e tem <strong style="color: #2e7d32;">100% de reembolso nos primeiros 30 dias</strong>.
 </div>
 
@@ -164,7 +164,7 @@ A rececionista IA resolve isso por <strong style="color: #2e7d32;">€199/mês</
 
 <strong style="color: #2e7d32;">Teste grátis:</strong> https://ia-recepcionista.com/#demo
 
-<div style="background-color: #e8f5e9; border: 1px solid #c8e6c9; padding: 10px; margin: 10px 0; border-radius: 5px;">
+<div style="background-color: #e8f5e9; border: 1px solid #c8e6c9; padding: 10px; margin: 10px 0; border-radius: 5px; width: 700px;">
     <strong style="color: #2e7d32;">Sem compromisso:</strong> pode cancelar a qualquer momento e tem <strong style="color: #2e7d32;">100% de reembolso nos primeiros 30 dias</strong>.
 </div>
 

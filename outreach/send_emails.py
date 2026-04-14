@@ -353,14 +353,12 @@ class EmailSender:
                 continue
 
             # Send email
-            # success = self.send_email(
-            #     to_email=email,
-            #     to_name=name,
-            #     subject=subject,
-            #     html_content=body
-            # )
-
-            success = 1  # Simulate success for testing without sending
+            success = self.send_email(
+                to_email=email,
+                to_name=name,
+                subject=subject,
+                html_content=body
+            )
 
             # Update result
             result = {
