@@ -101,56 +101,56 @@ class EmailSender:
             event_type='unsubscribed',
             days=days
         )
+
+        updated_count = 0
         
         if not unsubscribed_events:
             print(f"✓ No unsubscribed events found in last {days} days")
-            return 0
-        
-        print(f"✓ Found {len(unsubscribed_events)} unsubscribed event(s)\n")
-        
-        # Load leads
-        csv_file = os.path.join(os.path.dirname(__file__), leads_csv if os.path.exists(leads_csv) else 'brevo_import.csv')
-        if not os.path.exists(csv_file):
-            # Try absolute path if relative fails
-            csv_file = os.path.join('/home/ubuntu/ai_receptionist/outreach', leads_csv if os.path.exists(leads_csv) else 'brevo_import.csv')
-
-        with open(csv_file, 'r', encoding='utf-8') as f:
-            reader = csv.DictReader(f)
-            fieldnames = list(reader.fieldnames) if reader.fieldnames else []
-            all_leads = list(reader)
-        
-        # Track updates
-        updated_count = 0
-        unsubscribed_emails = set()
-        
-        # Update leads that unsubscribed
-        for event in unsubscribed_events:
-            email = event['email']
-            
-            # Find this lead in the CSV
-            for lead in all_leads:
-                lead_email = lead.get('email') or lead.get('EMAIL')
-                if email == lead_email:
-                    # Only update if not already unsubscribed
-                    current_status = lead.get('status', '')
-                    if current_status not in ['unsubscribed']:
-                        lead['status'] = 'unsubscribed'
-                        lead['response_date'] = event['_date']
-                        unsubscribed_emails.add(email)
-                        updated_count += 1
-                        print(f"  ✗ {lead.get('name') or lead.get('NOME_NEGOCIO', '')} ({email})")
-                        print(f"    Status: unsubscribed at {event['_date']}")
-                    break
-        
-        # Save updated leads
-        if updated_count > 0:
-            import sys
-            sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-            from utils.atomic_writer import atomic_write_csv
-            atomic_write_csv(csv_file, fieldnames, all_leads)
-            print(f"\n✅ Updated {updated_count} lead(s) to 'unsubscribed' status")
         else:
-            print(f"\n✓ No new unsubscribed contacts to update")
+            print(f"✓ Found {len(unsubscribed_events)} unsubscribed event(s)\n")
+            
+            # Load leads
+            csv_file = os.path.join(os.path.dirname(__file__), leads_csv if os.path.exists(leads_csv) else 'brevo_import.csv')
+            if not os.path.exists(csv_file):
+                # Try absolute path if relative fails
+                csv_file = os.path.join('/home/ubuntu/ai_receptionist/outreach', leads_csv if os.path.exists(leads_csv) else 'brevo_import.csv')
+
+            with open(csv_file, 'r', encoding='utf-8') as f:
+                reader = csv.DictReader(f)
+                fieldnames = list(reader.fieldnames) if reader.fieldnames else []
+                all_leads = list(reader)
+            
+            # Track updates
+            unsubscribed_emails = set()
+            
+            # Update leads that unsubscribed
+            for event in unsubscribed_events:
+                email = event['email']
+                
+                # Find this lead in the CSV
+                for lead in all_leads:
+                    lead_email = lead.get('email') or lead.get('EMAIL')
+                    if email == lead_email:
+                        # Only update if not already unsubscribed
+                        current_status = lead.get('status', '')
+                        if current_status not in ['unsubscribed']:
+                            lead['status'] = 'unsubscribed'
+                            lead['response_date'] = event['_date']
+                            unsubscribed_emails.add(email)
+                            updated_count += 1
+                            print(f"  ✗ {lead.get('name') or lead.get('NOME_NEGOCIO', '')} ({email})")
+                            print(f"    Status: unsubscribed at {event['_date']}")
+                        break
+            
+            # Save updated leads
+            if updated_count > 0:
+                import sys
+                sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+                from utils.atomic_writer import atomic_write_csv
+                atomic_write_csv(csv_file, fieldnames, all_leads)
+                print(f"\n✅ Updated {updated_count} lead(s) to 'unsubscribed' status")
+            else:
+                print(f"\n✓ No new unsubscribed contacts to update")
         
         # Save state after successful check
         import sys
@@ -233,7 +233,7 @@ class EmailSender:
                 continue
 
             # Check if sent 5+ days ago
-            sent_at = lead.get('send_at', '')
+            sent_at = lead.get('sent_at', '')
             if not sent_at:
                 continue
 
@@ -246,7 +246,7 @@ class EmailSender:
 
             # Check if they responded (status changed)
             status = lead.get('status', '')
-            if status in ['responded', 'interested', 'contacted', 'followup_sent']:
+            if status in ['responded', 'interested', 'contacted', 'followup_sent', 'unsubscribed', '']:
                 continue  # They responded or already got follow-up
 
             # Get follow-up template
@@ -282,9 +282,7 @@ class EmailSender:
             result = {
                 **lead,
                 'followup_sent_at': datetime.now().isoformat() if success else None,
-                'followup_subject': subject,
                 'status': 'followup_sent' if success else 'followup_failed',
-                'days_since_initial': days_since
             }
             results.append(result)
 
@@ -364,7 +362,8 @@ class EmailSender:
             result = {
                 **lead,
                 'sent_at': datetime.now().isoformat() if success else None,
-                'status': 'contacted' if success else 'failed',
+                'status': 'initial email sent' if success else 'failed',
+                'subject': subject
             }
             results.append(result)
 
